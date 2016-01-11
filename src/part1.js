@@ -37,7 +37,7 @@ switch (element){
 	case "H":
 		const sphereMaterial = new THREE.MeshBasicMaterial({color: white});
 		break;
-	case default:
+	default:
 		const sphereMaterial = new THREE.MeshBasicMaterial({color: green});
 		break;
 }
