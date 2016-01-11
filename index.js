@@ -36262,9 +36262,23 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var x = function x(y) {
-	  return 2;
-	};
+	//Camera setup
+	var camera = new _three2.default.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+	camera.position.z = 1000;
+
+	//Scene setup
+	var scene = new _three2.default.Scene();
+
+	//Renderer setup
+	var renderer = new _three2.default.WebGLRenderer();
+	renderer.setSize(800, 800);
+
+	var planeGeometry = new _three2.default.PlaneGeometry(60, 20);
+	var planeMaterial = new _three2.default.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+	var plane = new _three2.default.Mesh(planeGeometry, planeMaterial);
+	scene.add(plane);
+
+	document.getElementById("part-2-3d").appendChild(renderer.domElement);
 
 /***/ }
 /******/ ]);
