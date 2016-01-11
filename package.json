@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/webpack src/index.js index.js",
+    "preinstall": "npm run build",
     "watch": "node_modules/.bin/webpack src/index.js index.js --watch",
     "start": "node_modules/.bin/http-server"
   },
