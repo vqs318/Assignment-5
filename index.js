@@ -46,19 +46,70 @@
 
 	"use strict";
 
-	__webpack_require__(1);
-	__webpack_require__(3);
+	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./part1\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	__webpack_require__(2);
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var THREE = __webpack_require__(2);
+	var _three = __webpack_require__(3);
+
+	var _three2 = _interopRequireDefault(_three);
+
+	var _threeOrbitControls = __webpack_require__(4);
+
+	var _threeOrbitControls2 = _interopRequireDefault(_threeOrbitControls);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var OrbitControls = (0, _threeOrbitControls2.default)(_three2.default);
+
+	//Camera setup
+	var camera = new _three2.default.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+	camera.position.z = 1000;
+	var controls = new OrbitControls(camera);
+
+	//Scene setup
+	var scene = new _three2.default.Scene();
+
+	//Renderer setup
+	var renderer = new _three2.default.WebGLRenderer();
+	renderer.setSize(800, 800);
+	document.getElementById("part-2-3d").appendChild(renderer.domElement);
+
+	////Axes
+	//const axes = new THREE.AxisHelper(20);
+	//scene.add(axes);
+
+	//Meshes
+	var xPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0xff0000 }));
+	var yPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x00ff00 }));
+	yPlane.rotateX(Math.PI / 2);
+	var zPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x0000ff }));
+	zPlane.rotateY(Math.PI / 2);
+	scene.add(xPlane, yPlane, zPlane);
+
+	xPlane.material.side = _three2.default.DoubleSide;
+	yPlane.material.side = _three2.default.DoubleSide;
+	zPlane.material.side = _three2.default.DoubleSide;
+
+	window.xPlane = xPlane;
+	window.yPlane = yPlane;
+	window.zPlane = zPlane;
+
+	//Render loop
+	function render() {
+	    requestAnimationFrame(render);
+	    renderer.render(scene, camera);
+	}
+	render();
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var self = self || {};// File:src/Three.js
@@ -36249,64 +36300,6 @@
 	  this['THREE'] = THREE;
 	}
 
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _three = __webpack_require__(2);
-
-	var _three2 = _interopRequireDefault(_three);
-
-	var _threeOrbitControls = __webpack_require__(4);
-
-	var _threeOrbitControls2 = _interopRequireDefault(_threeOrbitControls);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var OrbitControls = (0, _threeOrbitControls2.default)(_three2.default);
-
-	//Camera setup
-	var camera = new _three2.default.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-	camera.position.z = 1000;
-	var controls = new OrbitControls(camera);
-
-	//Scene setup
-	var scene = new _three2.default.Scene();
-
-	//Renderer setup
-	var renderer = new _three2.default.WebGLRenderer();
-	renderer.setSize(800, 800);
-	document.getElementById("part-2-3d").appendChild(renderer.domElement);
-
-	////Axes
-	//const axes = new THREE.AxisHelper(20);
-	//scene.add(axes);
-
-	//Meshes
-	var xPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0xff0000 }));
-	var yPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x00ff00 }));
-	yPlane.rotateX(Math.PI / 2);
-	var zPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x0000ff }));
-	zPlane.rotateY(Math.PI / 2);
-	scene.add(xPlane, yPlane, zPlane);
-
-	xPlane.material.side = _three2.default.DoubleSide;
-	yPlane.material.side = _three2.default.DoubleSide;
-	zPlane.material.side = _three2.default.DoubleSide;
-
-	window.xPlane = xPlane;
-	window.yPlane = yPlane;
-	window.zPlane = zPlane;
-
-	//Render loop
-	function render() {
-	    requestAnimationFrame(render);
-	    renderer.render(scene, camera);
-	}
-	render();
 
 /***/ },
 /* 4 */
