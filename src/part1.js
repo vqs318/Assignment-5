@@ -19,29 +19,30 @@ document.getElementById("part-1-3d").appendChild(renderer.domElement);
 var coordinates = new THREE.Vector3(0,0,0)
 var element = "C"
 
+var sphereMaterial;
 
 const sphereGeo = new THREE.sphere(coordinates, 1);
 switch (element){
 	case "C":
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: gray});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: gray});
 		break;
 	case "N":
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: blue});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: blue});
 		break;
 	case "O":
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: red});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: red});
 		break;
 	case "S":
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: yellow});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: yellow});
 		break;
 	case "H":
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: white});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: white});
 		break;
 	default:
-		const sphereMaterial = new THREE.MeshBasicMaterial({color: green});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: green});
 		break;
 }
-const sphereObj = new THREE.Mesh(sphereGeo, sphereObj);
+const sphereObj = new THREE.Mesh(sphereGeo, sphereMaterial);
 scene.add(sphereObj);
 
 //Render loop
