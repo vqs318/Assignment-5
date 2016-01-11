@@ -21,25 +21,25 @@ var element = "C"
 
 var sphereMaterial;
 
-const sphereGeo = new THREE.sphere(coordinates, 1);
+const sphereGeo = new THREE.Sphere(coordinates, 1);
 switch (element){
 	case "C":
-		sphereMaterial = new THREE.MeshBasicMaterial({color: gray});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0x808080});
 		break;
 	case "N":
-		sphereMaterial = new THREE.MeshBasicMaterial({color: blue});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0x0000ff});
 		break;
 	case "O":
-		sphereMaterial = new THREE.MeshBasicMaterial({color: red});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
 		break;
 	case "S":
-		sphereMaterial = new THREE.MeshBasicMaterial({color: yellow});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0xFFFF00});
 		break;
 	case "H":
-		sphereMaterial = new THREE.MeshBasicMaterial({color: white});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0xffffff});
 		break;
 	default:
-		sphereMaterial = new THREE.MeshBasicMaterial({color: green});
+		sphereMaterial = new THREE.MeshBasicMaterial({color: 0x008000});
 		break;
 }
 const sphereObj = new THREE.Mesh(sphereGeo, sphereMaterial);
