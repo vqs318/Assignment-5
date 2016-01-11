@@ -13,7 +13,7 @@ const scene = new THREE.Scene();
 //Renderer setup
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(800, 800);
-document.getElementById("part-2-3d").appendChild(renderer.domElement);
+document.getElementById("part-1-3d").appendChild(renderer.domElement);
 
 //Meshes
 var coordinates = new THREE.Vector3(0,0,0)
