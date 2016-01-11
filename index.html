@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    </head>
+    <body>
+        <div id="content" class="col-md-8 center-block">
+            <h1>Mapping Crime</h1>
+            <h4>Michael Milton, Katareena Geller</h4>
+            <br>
+            <iframe width="100%" height="520" frameborder="0" src="https://vqs318.cartodb.com/viz/532ba8da-9db5-11e5-9aa9-0ef7f98ade21/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+        </div> 
+        <div id="content" class="col-md-10 center-block">
+            <h3><b>Overview</b></h3>
+            <p>We have created a crime map of San Fransisco based on the the crime data provided for the assignment and neighborhood data found from an outside source.  The map is divided into color coded neighborhoods based on median annual household income.  Clicking on a neighborhood provides a pop-up box that provides the name of the neighborhood, the median income, the popuation, and the unemployment rate.  Hovering over a single point will show the category assigned by the police report, and the description as provided in the police report.  We have made our own categories and grouped them by color as seen in the legend.  This was done to help in visualizing the data and for making assumptions.  A full grouping can be seen below.            
+            <h3><b>Assumption 1: Lower Median Income Equals More Crime </b></h3>
+            <p>Our first assumption is pretty apparent without much alteration of the map.  The neighborhoods that are on the lower end of the income scale shown as yellow and light green have more instances of crime.  The maps shows that the majority of crime happens in the upper right corner of San Fransisco.  There are so many crime points that it is actually hard to see what color the neighborhood beneath these points is.  With our assumption, one would hypothesize that these neighborhoods will be colored yellow or light green.  By zooming in it becomes clear that they are indeed yellow or light green.   </p>
+        </br>
+            <h3><b>Assumption 2</b></h3>
+            <p>fajksdfaskldj adslkj;l sjfklskl adsf</p>
+        </br>
+            <h5><b>Crime Groupings</b></h5>
+            <p>                      
+                        Theft/Burglary(Black):
+                        larceny/theft,
+                        stolen property,
+                        robbery,
+                        vehicle theft,
+                        </br>
+                        Serious Offenses(Red):
+                        arson,
+                        assault,
+                        DUI,
+                        drug/narcotic,
+                        sex offenses forcible/non forcible
+                        </br>
+                        Missing Persons/Found Vehicle (Green):
+                        kidnapping,
+                        missing person,
+                        recovered vehicle,
+                        runaway
+                        </br>
+                        White Collar (Purple):
+                        bad checks,
+                        bribery,
+                        embezzlement,
+                        extortion,
+                        forgery/counterfeiting
+                        fraud
+                        </br>
+                        Other (Orange)
+                        disorderly conduct,
+                        drunkeness,
+                        family offenses,
+                        gambling,
+                        liquor laws,
+                        loitering,
+                        prostitution,
+                        suspicios occurance,
+                        trespass,
+                        vandalism,
+                        warrants,
+                        weapon laws
+
+            </p>
+            <h5><b>Sources</b></h5>
+            <p>http://www.sf-planning.org
+            </br>
+            https://www.kaggle.com/c/sf-crime
+            </p>
+
+
+        
+        </div>
+        <script src="index.js"></script>
+
+    </body>
+</html>
