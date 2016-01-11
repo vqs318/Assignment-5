@@ -43,7 +43,6 @@ switch (element) {
         break;
 }
 const sphereObj = new THREE.Mesh(sphereGeo, sphereMaterial);
-window.sphere = sphereObj;
 scene.add(sphereObj);
 
 //Render loop
