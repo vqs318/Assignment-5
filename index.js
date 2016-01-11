@@ -36281,11 +36281,25 @@
 	renderer.setSize(800, 800);
 	document.getElementById("part-2-3d").appendChild(renderer.domElement);
 
+	////Axes
+	//const axes = new THREE.AxisHelper(20);
+	//scene.add(axes);
+
 	//Meshes
-	var planeGeometry = new _three2.default.PlaneGeometry(800, 800);
-	var planeMaterial = new _three2.default.MeshBasicMaterial({ color: 0xff0000 });
-	var plane = new _three2.default.Mesh(planeGeometry, planeMaterial);
-	scene.add(plane);
+	var xPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0xff0000 }));
+	var yPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x00ff00 }));
+	yPlane.rotateX(Math.PI / 2);
+	var zPlane = new _three2.default.Mesh(new _three2.default.PlaneGeometry(800, 800), new _three2.default.MeshBasicMaterial({ color: 0x0000ff }));
+	zPlane.rotateY(Math.PI / 2);
+	scene.add(xPlane, yPlane, zPlane);
+
+	xPlane.material.side = _three2.default.DoubleSide;
+	yPlane.material.side = _three2.default.DoubleSide;
+	zPlane.material.side = _three2.default.DoubleSide;
+
+	window.xPlane = xPlane;
+	window.yPlane = yPlane;
+	window.zPlane = zPlane;
 
 	//Render loop
 	function render() {
