@@ -36280,6 +36280,7 @@
 	var renderer = new _three2.default.WebGLRenderer();
 	renderer.setSize(800, 800);
 	document.getElementById("part-2-3d").appendChild(renderer.domElement);
+	
 
 	//Meshes
 	var planeGeometry = new _three2.default.PlaneGeometry(800, 800);
