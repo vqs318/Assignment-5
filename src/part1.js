@@ -1,62 +1,59 @@
 import THREE from "three";
 import orbit from 'three-orbit-controls'
-import 
-const OrbitControls = orbit(THREE);
+import PDBLoader from "./pdbRenderer"
 
+const OrbitControls = orbit(THREE);
 
 //Renderer setup
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(800, 800);
 document.getElementById("part-1-3d").appendChild(renderer.domElement);
 
-//Camera setup
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-camera.position.z = 1000;
-const controls = new OrbitControls(camera, renderer.domElement);
-
 //Scene setup
 const scene = new THREE.Scene();
 
+//Camera setup
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+camera.position.z = 100;
+const controls = new OrbitControls(camera, renderer.domElement);
 
-var loader = new THREE.PDBLoader();
-var url = "/data/pdb2rh1.ent"
+var loader = new PDBLoader();
+var url = "/data/pdb2rh1.ent";
 
-loader.load(url,function(geometry,json){
-    var sphereGeometry = new THREE.SphereGeometry(100)
+loader.load(url, function (geometryAtom, geometryBond, json) {
+    var sphereGeometry = new THREE.IcosahedronGeometry(1, 1);
 
-    for ( var i = 0; i < geometry.vertices.length; i ++ ) {
+    for (var i = 0; i < geometryAtom.vertices.length; i++) {
 
-        var position = geometry.vertices[ i ];
+        var position = geometryAtom.vertices[i];
+        var element = geometryAtom.elements[i];
         var color;
-        var element = geometry.elements[ i ];
 
         switch (element) {
             case "C":
-                color="gray";
+                color = "gray";
                 break;
             case "N":
-                color="blue";
+                color = "blue";
                 break;
             case "O":
-                color="red";
+                color = "red";
                 break;
             case "S":
-                color="yellow";
+                color = "yellow";
                 break;
             case "H":
-                color="white";
+                color = "white";
                 break;
             default:
-                color="green";
+                color = "green";
                 break;
         }
-        var material = new THREE.MeshPhongMaterial( { color: color } );
+        var material = new THREE.MeshPhongMaterial({color: color});
 
-        var object = new THREE.Mesh( sphereGeometry, material );
-        object.position.copy( position );
-        object.position.multiplyScalar( 75 );
-        object.scale.multiplyScalar( 25 );
-        root.add( object );
+        var object = new THREE.Mesh(sphereGeometry, material);
+        object.position.copy(position);
+        scene.add(object);
 
         //var atom = json.atoms[ i ];
 
@@ -70,12 +67,19 @@ loader.load(url,function(geometry,json){
         //root.add( label );
     }
 
-}
+});
+
+//Lighting
+var light = new THREE.DirectionalLight(0xffffff, 0.8);
+light.position.set(1, 1, 1);
+scene.add(light);
+
+var light = new THREE.DirectionalLight(0xffffff, 0.5);
+light.position.set(-1, -1, 1);
+scene.add(light);
 
 
-
-
-//Meshes
+window.scene = scene;
 
 
 //Render loop

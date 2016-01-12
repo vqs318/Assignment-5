@@ -93,7 +93,7 @@ for (let section in images)
 
 //Preload textures
 for (let section in images)
-    for (let i = 0; i < images[section].count; i++)
+    for (let i = 1; i < images[section].count; i++)
         THREE.ImageUtils.loadTexture(getSliceString(section, i));
 
 //Render loop
