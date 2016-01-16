@@ -64,14 +64,14 @@ const scene = new THREE.Scene();
 //Meshes
 const xPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(800, 800),
-    new THREE.MeshBasicMaterial()
+    new THREE.MeshPhongMaterial()
 );
 xPlane.material.side = THREE.DoubleSide;
 images.axial.plane = xPlane;
 
 const yPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(800, 800),
-    new THREE.MeshBasicMaterial()
+    new THREE.MeshPhongMaterial()
 );
 yPlane.rotateX(Math.PI / 2);
 yPlane.material.side = THREE.DoubleSide;
@@ -79,7 +79,7 @@ images.coronal.plane = yPlane;
 
 const zPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(800, 800),
-    new THREE.MeshBasicMaterial()
+    new THREE.MeshPhongMaterial()
 );
 zPlane.rotateY(Math.PI / 2);
 zPlane.material.side = THREE.DoubleSide;
@@ -95,6 +95,15 @@ for (let section in images)
 for (let section in images)
     for (let i = 1; i < images[section].count; i++)
         THREE.ImageUtils.loadTexture(getSliceString(section, i));
+
+//Lighting
+let light = new THREE.DirectionalLight(0xffffff, 0.9);
+light.position.set(1, 1, 1);
+scene.add(light);
+
+light = new THREE.DirectionalLight(0xffffff, 0.7);
+light.position.set(-1, -1, 1);
+scene.add(light);
 
 //Render loop
 function render() {

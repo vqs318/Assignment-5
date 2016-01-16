@@ -1,8 +1,15 @@
+//Imports
 import THREE from "three";
 import orbit from 'three-orbit-controls'
+import chunk from 'lodash.chunk'
+import flatten from 'lodash.flatten'
 import PDBLoader from "./pdbRenderer"
+import createTree from 'yaot';
 
 const OrbitControls = orbit(THREE);
+
+//Constants
+const url = "/data/pdb2rh1.ent";
 
 //Renderer setup
 const renderer = new THREE.WebGLRenderer();
@@ -14,59 +21,58 @@ const scene = new THREE.Scene();
 
 //Camera setup
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-camera.position.z = 100;
-const controls = new OrbitControls(camera, renderer.domElement);
+//camera.position.set(-51.65, 70.75, 62.33);
+camera.position.set(-67.41, 87.14, 50.56);
+camera.rotation.set(-1.045, -0.59, -0.764);
+//camera.position.z = 100;
+new OrbitControls(camera, renderer.domElement);
 
-var loader = new PDBLoader();
-var url = "/data/pdb2rh1.ent";
+new PDBLoader().load(url, geometryAtom => {
+    const sphereGeometry = new THREE.IcosahedronGeometry(1, 1);
+    const atoms = geometryAtom.vertices.map((position, i) => {
 
-loader.load(url, function (geometryAtom, geometryBond, json) {
-    var sphereGeometry = new THREE.IcosahedronGeometry(1, 1);
+        //Make an atom using a sphere of the right colour
+        const object = new THREE.Mesh(
+            sphereGeometry,
+            new THREE.MeshPhongMaterial({color: geometryAtom.colors[i]})
+        );
 
-    for (var i = 0; i < geometryAtom.vertices.length; i++) {
-
-        var position = geometryAtom.vertices[i];
-        var element = geometryAtom.elements[i];
-        var color;
-
-        switch (element) {
-            case "C":
-                color = "gray";
-                break;
-            case "N":
-                color = "blue";
-                break;
-            case "O":
-                color = "red";
-                break;
-            case "S":
-                color = "yellow";
-                break;
-            case "H":
-                color = "white";
-                break;
-            default:
-                color = "green";
-                break;
-        }
-        var material = new THREE.MeshPhongMaterial({color: color});
-
-        var object = new THREE.Mesh(sphereGeometry, material);
+        //Place it correctly
         object.position.copy(position);
-        scene.add(object);
+        object.scale.multiplyScalar(0.25);
+        return object;
+    });
 
-        //var atom = json.atoms[ i ];
+    //Calculate the nearby atoms using an octree
+    const octTree = createTree();
+    const flattened = flatten(geometryAtom.vertices.map(pos => pos.toArray()));
+    octTree.init(flattened);
+    const bonds = geometryAtom.vertices.map((pos, i)=> {
+        return octTree
+            .intersectSphere(pos.x, pos.y, pos.z, 1.9)
+            .filter(index => index != i); //Don't include self
+    });
 
-        //var text = document.createElement( 'div' );
-        //text.className = 'label';
-        //text.style.color = 'rgb(' + atom[ 3 ][ 0 ] + ',' + atom[ 3 ][ 1 ] + ',' + atom[ 3 ][ 2 ] + ')';
-        //text.textContent = atom[ 4 ];
+    //Draw bonds
+    const bondGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const bondMaterial = new THREE.MeshPhongMaterial(0xffffff);
+    const bondObjects = [];
+    bonds.forEach((targets, i) => {
+        const start = atoms[i].position;
+        targets.forEach(j => {
+            const index = j == 0 ? 0 : j / 3;
+            const end = atoms[index].position;
+            const object = new THREE.Mesh(bondGeometry, bondMaterial);
+            object.position.copy(start);
+            object.position.lerp(end, 0.5);
+            object.lookAt(start);
+            object.scale.set(0.1, 0.1, start.distanceTo(end));
+            bondObjects.push(object);
+        });
+    });
 
-        //var label = new THREE.CSS2DObject( text );
-        //label.position.copy( object.position );
-        //root.add( label );
-    }
-
+    scene.add.apply(scene, atoms);
+    scene.add.apply(scene, bondObjects);
 });
 
 //Lighting
@@ -74,13 +80,11 @@ var light = new THREE.DirectionalLight(0xffffff, 0.8);
 light.position.set(1, 1, 1);
 scene.add(light);
 
-var light = new THREE.DirectionalLight(0xffffff, 0.5);
+light = new THREE.DirectionalLight(0xffffff, 0.5);
 light.position.set(-1, -1, 1);
 scene.add(light);
 
-
-window.scene = scene;
-
+window.camera = camera;
 
 //Render loop
 function render() {

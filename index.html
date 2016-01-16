@@ -12,10 +12,30 @@
             <h1>3D Data</h1>
         </div>
     </div>
+    For both parts you should discuss the use of the effects (material properties, shading) that can be added to a scene
+    and whether they are useful for the particular application.
     <section id="part-1" class="row">
         <div class="col-md-12">
             <h3>Part 1</h3>
             <div id="part-1-3d"></div>
+            <h4>Discussion</h4>
+            <p>The most useful effect in presenting molecular data is the use of colour for each element. Colour is a simple way to
+                represent a dimension fourth to the data, and allows atoms to be easily found and mentally grouped by
+                the user.
+                Luckily there exists a standard colour scheme for elements, which makes developing and viewing such
+                scenes
+                significantly easier.</p>
+
+            <p>The properties of the material, such as texture, reflectivity, shading etc. have little importance
+                in this model as the
+                concept of texture makes little sense for atoms. Even the use of shadows and lighting, which normally
+                facilitate in the understanding of orientation are not particularly useful as this model is static
+                and no bond rotation is occurring. Lighting does, however, contribute to the realism of the scene,
+                allowing users to
+                experience a more believable scene that may contribute to their spatial understanding.</p>
+            <p>For interest's sake, here is an example of the same scene as above, but rendered without directional
+                lighting:</p>
+            <img src="/images/no_lighting.png"/>
         </div>
     </section>
     <section id="part-2" class="row">
@@ -35,6 +55,14 @@
             </div>
 
             <div id="part-2-3d"></div>
+            <h4>Discussion</h4>
+            <p>In contrast to the previous scene, this brain model relies on using a texture on its 3 planes in order
+                to convey its spatial information about the brain. As the MRI scans are in black and white, and because
+                there is no additional dimension of data needed to be displayed, colour is not used in this scene.</p>
+            <p>The MR images are displayed using a Phong material, which simulates a shiny surface, as on photo paper.
+                This is not particularly important and indeed adds unnecessary strain on the renderer.
+                However, as before, adding lighting effects adds some realism that seems to make the scene more
+                accessible.</p>
         </div>
     </section>
     <script src="index.js"></script>
